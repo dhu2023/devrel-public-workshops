@@ -118,6 +118,10 @@ def personalize_newsletter():
         user=_get_user_info
     )  
 
+    @task(max_active_tis_per_dag=1, retries=4)
+    def dummy_run(context: dict) -> dict:
+        return 1
+
     @task(outlets=[Asset("personalized_newsletters")])
     def create_personalized_newsletter(
         user: dict,
