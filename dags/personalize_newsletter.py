@@ -119,8 +119,9 @@ def personalize_newsletter():
     )  
 
     @task(max_active_tis_per_dag=1, retries=4)
-    def dummy_run(context: dict) -> dict:
+    def _dummy_run() -> dict:
         return 1
+    _dummy_run = _dummy_run()
 
     @task(outlets=[Asset("personalized_newsletters")])
     def create_personalized_newsletter(
